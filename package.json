@@ -1,0 +1,21 @@
+{
+  "name": "tasf_crud_test",
+  "version": "1.0.0",
+  "description": "Technical CRUD  Test made for TASF interview.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "tasf_crud_test"
+  },
+  "author": "Carlos Pérez",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.19"
+  }
+}

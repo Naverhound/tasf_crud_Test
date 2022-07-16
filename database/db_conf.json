@@ -1,0 +1,16 @@
+{
+    "production":{
+        "user": "root",
+        "password": "lamisma14",
+        "database": "Tasf-Test-DB",
+        "host": "localhost",
+        "dialect": "mysql"
+    },
+    "development":{
+        "user": "root",
+        "password": "lamisma14",
+        "database": "Tasf-Test-DB",
+        "host": "localhost",
+        "dialect": "mysql"
+    }
+}
