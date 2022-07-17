@@ -1,7 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2/promise');
-const dbConfig = require('./database/db_conf.json');
-const routes = require('./routes/index'); 
+const routes = require('./routes/index');
+const {initialization, db_open_connection,db_structure} = require('./database/db_connection'); 
 const app = express();
 const port = process.env.PORT||3000;//process will obtain the  port enviromental variable in hosting
 
@@ -21,30 +20,25 @@ app.use(function(req, res, next) {//middleware 404
 
 //DB configuration
 async function setupDB(){
-  try {    
-    // create db if it doesn't already exist
-    //se llenan los elementos del objeto basados la estructura JSon de dbConfig
-    const { host, port, user, password, database } = dbConfig.development;
-    const temp_connection = await mysql.createConnection({ host, port, user, password });
-    await temp_connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
-    temp_connection.close();// Past code was only to create the database that the system will need
-    //now we connect to the recent database
-    const connection = await mysql.createConnection({ host, user, password, database });
-    console.log('<<Connection with DB has been established successfully on '+database+'.>>');
-    console.log(connection);
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
+  await initialization().then(async (had_to_be_created)=>{
+    
+    if(had_to_be_created) {
+      /*means the database was created for first time,
+      lets insert tables*/
+      await db_structure();
+    }
+    });
+  
 }
 
 app.listen(port, (err) => {
-
     if (err) {
         console.log(err);
         return;
-        }
+    }
     console.log(`<--<--TASF CRUD application running at http://localhost:${port}-->-->`);
-// setupDB();
+    console.log('** Verifying essential data existence **')
+    setupDB();
 });
   
   //exportación para uso como api y ser llamado a otra parte enviando el objeto app (todo lo actual)
