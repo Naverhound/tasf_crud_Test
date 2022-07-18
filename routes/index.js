@@ -1,7 +1,8 @@
 const express = require ('express');
 const router = express.Router();
 const {db_open_connection} = require ('../database/db_connection');
-const controller = require('../controllers/index_controller')
+const index_controller = require('../controllers/index_controller')
+const login_controller = require('../controllers/login_controller')
 
 router.route('/') // Force to get into login
   .all((req,res) => {
@@ -9,14 +10,8 @@ router.route('/') // Force to get into login
   });
 
 router.route('/login')
-  .get(async (req,res) => { // Get Login page
-    
-    
-    res.send("<h1>Aqui sera el login bato</h1>")
-  })
-  .post((req,res) => { // Create new user
-
-  });
+  .get(login_controller.get)
+  .post(login_controller.post);
 
 router.route('/index')
   .all(function (req, res, next) {
@@ -25,7 +20,7 @@ router.route('/index')
     //we can run all login authentications
     next();
   })
-  .get(controller.get)
+  .get(index_controller.get)
   .post((req,res) => {// Create a new sale and sale_descript
 
   });

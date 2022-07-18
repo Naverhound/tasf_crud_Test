@@ -1,11 +1,16 @@
 const express = require('express');
 const routes = require('./routes/index');
 const {initialization, db_open_connection,db_structure} = require('./database/db_connection'); 
+const bodyParser = require('body-parser')
 const app = express();
 const port = process.env.PORT||3000;//process will obtain the  port enviromental variable in hosting
 
 app.set('port', port);
 app.set('view engine', 'ejs');
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 app.use(express.json({limit: "50mb"}));
 app.use('/',routes);
 
