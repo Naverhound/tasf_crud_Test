@@ -31,7 +31,7 @@ const initialization = async ()=>{
   
 }
 
-const db_structure = async()=>{
+const db_structure = async ()=>{
   console.log('*In structure creation*');
   try {
   const connection = await mysql.createConnection({multipleStatements: true, host, user, password, database });
@@ -89,6 +89,14 @@ const db_structure = async()=>{
     connection.close();
   } catch (error) {
     console.log(err);
+  }
+}
+
+const fill_database = async () => {
+  try {
+    
+  } catch (err) {
+    console.log(err)
   }
 }
 
